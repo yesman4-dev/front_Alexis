@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>📦 Lotes para: {{ data.producto.nombre }}</h2>
+
+<h1></h1>
+<mat-dialog-content [formGroup]="loteForm">
+  <div class="lote-form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" formControlName="cantidad">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bodega de asignacion</mat-label>
+      <mat-select formControlName="bodegaId">
+        <mat-option *ngFor="let u of Bodegalista" [value]="u.id">{{ u.descripcion }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Vencimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaVencimiento">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="acciones-lote">
+      <button mat-raised-button color="primary" (click)="agregarLote()">
+        <mat-icon>add</mat-icon> Agregar
+      </button>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 lote-table">
+    <ng-container matColumnDef="bodegaId">
+      <th mat-header-cell *matHeaderCellDef> Bodega </th>
+      <td mat-cell *matCellDef="let lote"> {{ getDescripcionBodega(lote.bodegaId ) }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaVencimiento">
+      <th mat-header-cell *matHeaderCellDef> Vence </th>
+      <td mat-cell *matCellDef="let lote"> {{ lote.fechaVencimiento | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let lote">
+        <input type="number" [(ngModel)]="lote.cantidad" [ngModelOptions]="{standalone: true}" class="editable-input">
+      </td>
+    </ng-container>
+    
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let lote">
+        <button mat-icon-button color="warn" (click)="eliminarLote(lote)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="accent" (click)="confirmar()">Aceptar</button>
+</mat-dialog-actions>

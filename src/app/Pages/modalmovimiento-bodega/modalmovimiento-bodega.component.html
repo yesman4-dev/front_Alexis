@@ -1,0 +1,38 @@
+<div class="modal-contenido">
+    <h2 class="titulo-modal">🚚 Mover producto entre bodegas</h2>
+  
+    <div class="detalle-producto">
+      <p><strong>🧴 Producto:</strong> {{ data.producto.nombreProducto }}</p>
+      <p><strong>🏠 Bodega origen:</strong> {{ data.bodegaOrigen.nombreBodega }}</p>
+      <p>
+        <strong>📦 Stock disponible:</strong> 
+        {{ data.producto.stockEnUnidadBase }} {{ data.producto.unidadBase }}
+      </p>
+    </div>
+  
+    <div class="form-group">
+
+      <label for="bodegaDestino">📍 Bodega destino:</label>
+      <select [(ngModel)]="bodegaDestinoId" id="bodegaDestino" class="form-control estilizado">
+        <option [ngValue]="null">Seleccione una bodega</option>
+        <option *ngFor="let bodega of bodegasDisponibles" [value]="bodega.id">
+          {{ bodega.descripcion }}
+        </option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="cantidad">🔢 Cantidad a mover en cajas:</label>
+      <input type="number" id="cantidad" [(ngModel)]="cantidad" min="1" class="form-control estilizado" />
+    </div>
+  
+    <div *ngIf="mensaje" class="mensaje-error">
+      {{ mensaje }}
+    </div>
+  
+    <div class="modal-actions">
+      <button class="btn redondo confirmar" (click)="moverProducto()">✔ Mover</button>
+      <button class="btn redondo cancelar" (click)="cerrar()">✖ Cancelar</button>
+    </div>
+  </div>
+  

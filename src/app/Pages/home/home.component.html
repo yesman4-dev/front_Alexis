@@ -1,0 +1,9 @@
+<div class="home-grid">
+  <div 
+    class="icon" 
+    *ngFor="let icon of icons" 
+    (click)="navigateTo(icon.label)">
+    <img [src]="icon.imgUrl" [alt]="icon.label">
+    <p>{{ icon.label }}</p>
+  </div>
+</div>

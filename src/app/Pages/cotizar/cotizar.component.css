@@ -1,0 +1,46 @@
+.cotizar-container {
+  padding: 1rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1976d2;
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.action-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.full-width-table {
+  width: 100%;
+  min-width: 600px;
+}
+
+mat-card-title.title {
+  padding-bottom: 0;
+}

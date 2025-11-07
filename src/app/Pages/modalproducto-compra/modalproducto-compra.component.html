@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Buscar producto</h2>
+
+<mat-dialog-content class="modal-content">
+  <form [formGroup]="productoForm">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Buscar producto</mat-label>
+      <input matInput type="text" [matAutocomplete]="autoProducto" formControlName="producto" placeholder="Cod Prod/ Cod Barras/ Nombre Producto">
+      <mat-autocomplete #autoProducto="matAutocomplete" [displayWith]="displayProducto">
+        <mat-option *ngFor="let prod of productosFiltrados" [value]="prod">
+          {{ prod.codigoProducto }} -{{ prod.nombreProducto }} - {{ prod.laboratorioNombre }}- {{ prod.presentacionContenidoNombre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="inputs-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Precio Compra</mat-label>
+        <input matInput type="number" formControlName="precioCompra">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" formControlName="cantidad">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="agregarProducto()">
+      <mat-icon>add</mat-icon> Agregar a Detalle
+    </button>
+  </form>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <mat-table [dataSource]="dataSource" class="detalle-tabla" *ngIf="detalleProductos.length > 0">
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef>Producto</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.nombre }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="precio">
+      <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.precio }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.cantidad }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="eliminarProducto(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="confirmar()">Confirmar</button>
+</mat-dialog-actions>

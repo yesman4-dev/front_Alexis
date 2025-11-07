@@ -1,0 +1,85 @@
+.crear-compra-wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #321ae9;
+    height: 100%;
+  }
+  
+  .crear-compra-card {
+    width: 100%;
+    max-width: 1200px;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #321ae9;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .acciones-bar {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .tabla-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  .mat-column-acciones {
+    text-align: center;
+  }
+  
+  .resumen {
+    font-size: 18px;
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .acciones-finales {
+    text-align: right;
+  }
+  
+
+  button {
+    border-radius: 15px;  /* Bordes redondeados */
+    padding: 10px 20px;  /* Ajusta el tamaño del botón si es necesario */
+  }
+
+  .seccion-titulo {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #321ae9;
+    border-left: 5px solid #ffffff;
+    padding-left: 10px;
+  }
+  
+
+  .editable-input {
+    width: 100%;
+    padding: 4px;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+  }
+  .editable-input:focus {
+    outline: none;
+    border-bottom: 2px solid #3f51b5; /* azul Angular */
+  }
+  

@@ -1,0 +1,99 @@
+<mat-card class="card-container">
+    <mat-tab-group>
+      <!-- Formulario para agregar cliente -->
+      <mat-tab label="Agregar Cliente">
+        <form [formGroup]="clienteForm" (ngSubmit)="agregarCliente()" class="user-form">
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del Cliente</mat-label>
+            <input matInput formControlName="nombreCliente" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>RTN</mat-label>
+            <input matInput formControlName="rtn">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input matInput formControlName="direccion">
+          </mat-form-field>
+  
+          <div class="btn-container">
+            <button mat-raised-button color="primary" type="submit">Agregar Cliente</button>
+          </div>
+  
+        </form>
+      </mat-tab>
+  
+      <!-- Lista de clientes -->
+      <mat-tab label="Lista de Clientes">
+  
+        <!-- Caja de búsqueda -->
+        <mat-form-field appearance="outline" class="search-box">
+          <mat-label>Buscar Cliente</mat-label>
+          <input matInput (keyup)="filtrarClientes($event)" placeholder="RTN o Nombre">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+  
+        <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+  
+          <!-- RTN -->
+          <ng-container matColumnDef="rtn">
+            <th mat-header-cell *matHeaderCellDef> RTN </th>
+            <td mat-cell *matCellDef="let user"> {{ user.rtn || 'N/A' }} </td>
+          </ng-container>
+  
+          <!-- Nombre del Cliente -->
+          <ng-container matColumnDef="nombreCliente">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let user"> {{ user.nombreCliente }} </td>
+          </ng-container>
+  
+          <!-- Estado -->
+          <ng-container matColumnDef="esActivo">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let user">
+              {{ user.esActivo ? 'Activo' : 'Inactivo' }}
+            </td>
+          </ng-container>
+  
+          <!-- Teléfono -->
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let user"> {{ user.telefono }} </td>
+          </ng-container>
+  
+          <!-- Ciclos -->
+          <ng-container matColumnDef="ciclos">
+            <th mat-header-cell *matHeaderCellDef> Ciclos </th>
+            <td mat-cell *matCellDef="let user"> {{ user.ciclos }} </td>
+          </ng-container>
+  
+          <!-- Acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="accent" (click)="editarproveedor(user)" *ngIf="idRol !== 2">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+  

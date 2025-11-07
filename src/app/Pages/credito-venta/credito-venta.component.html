@@ -1,0 +1,120 @@
+<div class="table-container">
+    <h2 class="titulo-tabla">Lista Créditos de Ventas</h2>
+  
+    <div class="filters">
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Buscar</mat-label>
+        <input matInput placeholder="Buscar por # / Total / Estado" (input)="onSearchChange($event)">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Buscar por fecha</mat-label>
+        <input matInput [matDatepicker]="picker" (dateChange)="onSearchChangeFecha($event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+                <!-- 🔹 NUEVO SELECT PARA FILTRAR POR ESTADO -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Filtrar por estado</mat-label>
+        <mat-select (selectionChange)="onEstadoChange($event.value)">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="PENDIENTE">Pendiente</mat-option>
+          <mat-option value="PAGADO">Pagado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+    <div style="text-align: right; margin-bottom: 15px;">
+      <button mat-stroked-button color="accent" (click)="generarPDF()">
+        🖨️ Descargar PDF
+      </button>
+    </div>
+    
+  
+    <div class="table-scroll-container">
+      <table mat-table [dataSource]="filteredCredito" class="mat-elevation-z8 full-width-table">
+        
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Credito # </th>
+          <td mat-cell *matCellDef="let credito"> {{ credito.id }} </td>
+        </ng-container>
+  
+      <ng-container matColumnDef="ventaId">
+        <th mat-header-cell *matHeaderCellDef> Venta # </th>
+        <td mat-cell *matCellDef="let credito">
+          <span 
+            style="color: blue; text-decoration: underline; cursor: pointer;"
+            (click)="abrirModalDetalleVenta(credito.ventaId)">
+            {{ credito.ventaId }}
+          </span>
+        </td>
+      </ng-container>
+
+  
+        <ng-container matColumnDef="fechaInicio">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
+          <td mat-cell *matCellDef="let credito"> {{ credito.fechaInicio | date:'dd/MM/yyyy HH:mm' }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="estadoCredito">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let credito">
+              <span class="estado-badge"
+                    [ngClass]="{
+                      'pendiente': credito.estadoCredito === 'PENDIENTE',
+                      'pagado': credito.estadoCredito === 'PAGADO',
+                      'parcial': credito.estadoCredito === 'Parcial'
+                    }">
+                {{ credito.estadoCredito }}
+              </span>
+            </td>
+          </ng-container>
+          
+  
+        <ng-container matColumnDef="clienteNombre">
+          <th mat-header-cell *matHeaderCellDef> Cliente </th>
+          <td mat-cell *matCellDef="let credito"> {{ credito.clienteNombre }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="totalCredito">
+          <th mat-header-cell *matHeaderCellDef> Total Crédito </th>
+          <td mat-cell *matCellDef="let credito"> {{ credito.totalCredito | currency:'HNL':'symbol':'1.2-2':'es-HN' }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="saldoPendiente">
+          <th mat-header-cell *matHeaderCellDef> Saldo Pendiente </th>
+          <td mat-cell *matCellDef="let credito"> {{ credito.saldoPendiente | currency:'HNL':'symbol':'1.2-2':'es-HN' }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let credito">
+
+            <button mat-stroked-button color="primary" (click)="verDetalleVentaCredito(credito)">
+              👁️ Ver Detalle
+            </button>
+            
+        
+            <button *ngIf="credito.estadoCredito !== 'PAGADO'" 
+                mat-flat-button 
+                color="accent" 
+                class="btn-abonar" 
+                (click)="abrirModalAbonar(credito)">
+                  💸 Abonar
+              </button>
+    
+          </td>
+        </ng-container>
+        
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  

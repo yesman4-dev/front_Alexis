@@ -1,0 +1,221 @@
+<form [formGroup]="productoForm" class="producto-form mat-elevation-z4">
+  <div class="form-card">
+    <h2 class="form-title">Agregar producto</h2>
+
+    <div class="imagen-uploader">
+      <label class="upload-label">Seleccionar imagen</label>
+      <input type="file" (change)="onImageSelect($event, 'imagenURL')" accept="image/*" />
+    
+      <!-- Vista previa -->
+      <div class="preview-container" *ngIf="productoForm.get('imagenURL')?.value">
+        <img [src]="productoForm.get('imagenURL')?.value" alt="Vista previa de imagen" class="preview-img" />
+      </div>
+    </div>
+    
+    <h1></h1>
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Código del producto</mat-label>
+        <input matInput formControlName="codigoProducto" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del producto</mat-label>
+        <input matInput formControlName="nombreProducto" 
+        (blur)="onNombreProductoBlur()"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción corta</mat-label>
+        <input matInput formControlName="descripcionCorta" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción larga</mat-label>
+        <textarea matInput formControlName="descripcionLarga"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descuento por cantidad</mat-label>
+        <input matInput type="number" formControlName="descuentoPorCantidad" />
+      </mat-form-field>
+
+      
+
+      <mat-form-field appearance="outline">
+        <mat-label>Código de barras</mat-label>
+        <input matInput formControlName="codigoBarras" />
+      </mat-form-field>
+
+      
+      <!-- Categoría con botón -->
+      <div class="select-with-button">
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <input matInput [matAutocomplete]="autoCategoria" formControlName="categoriaProductoId" />
+          <mat-autocomplete #autoCategoria="matAutocomplete" [displayWith]="displayCategoria" (optionSelected)="onCategoriaSelected($event.option.value)">
+            <mat-option *ngFor="let c of categoriasFiltradas" [value]="c.id">
+              {{ c.descripcion }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="abrirModalCategoria()" matTooltip="Agregar nueva categoría">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- Laboratorio con botón -->
+      <div class="select-with-button">
+        <mat-form-field appearance="outline">
+          <mat-label>Laboratorio</mat-label>
+          <input matInput [matAutocomplete]="autoLaboratorio" formControlName="laboratorioId" />
+          <mat-autocomplete #autoLaboratorio="matAutocomplete" [displayWith]="displayLaboratorio" (optionSelected)="onLaboratorioSelected($event.option.value)">
+            <mat-option *ngFor="let l of laboratoriosFiltrados" [value]="l.id">
+              {{ l.descripcion }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="abrirModalLaboratorio()" matTooltip="Agregar nuevo laboratorio">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- Presentación con botón -->
+      <div class="select-with-button">
+        <mat-form-field appearance="outline">
+          <mat-label>Presentación</mat-label>
+          <input matInput [matAutocomplete]="autoPresentacion" formControlName="presentacionContenidoId" />
+          <mat-autocomplete #autoPresentacion="matAutocomplete" [displayWith]="displayPresentacion" (optionSelected)="onPresentacionSelected($event.option.value)">
+            <mat-option *ngFor="let p of presentacionesFiltradas" [value]="p.id">
+              {{ p.descripcion }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="abrirModalPresentacion()" matTooltip="Agregar nueva presentación">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- Unidad de medida con botón -->
+      <div class="select-with-button">
+        <mat-form-field appearance="outline">
+          <mat-label>Unidad de medida</mat-label>
+          <input matInput [matAutocomplete]="autoUnidad" formControlName="unidadMedidaId" />
+          <mat-autocomplete #autoUnidad="matAutocomplete" [displayWith]="displayUnidad" (optionSelected)="onUnidadSelected($event.option.value)">
+            <mat-option *ngFor="let u of unidadesFiltradas" [value]="u.id">
+              {{ u.descripcion }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="abrirModalUnidadMedida()" matTooltip="Agregar nueva unidad">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio de venta principal</mat-label>
+        <input matInput type="number" formControlName="precioVenta" />
+      </mat-form-field>
+
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="esFracionable">¿Es fraccionable?</mat-checkbox>
+      </div>
+
+      <div class="checkbox-wrapper" *ngIf="username === 'AdminA'">
+        <mat-checkbox formControlName="esProductoEspecial">¿Es Especial?</mat-checkbox>
+      </div>
+      
+
+    </div>
+  </div>
+
+  <!-- Sección fraccionable -->
+  <div *ngIf="productoForm.get('esFracionable')?.value" class="form-card">
+    <h2 class="form-title">Opciones de venta fraccionada</h2>
+
+    <div class="venta-form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Unidad de medida</mat-label>
+        <mat-select [(ngModel)]="nuevaOpcion.unidadMedidaId" [ngModelOptions]="{ standalone: true }">
+          <mat-option *ngFor="let u of unidaddeMedidalista" [value]="u.id">{{ u.descripcion }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" [(ngModel)]="nuevaOpcion.cantidadPorUnidad" [ngModelOptions]="{ standalone: true }" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" [(ngModel)]="nuevaOpcion.precioVenta" [ngModelOptions]="{ standalone: true }" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="button" (click)="agregarOpcionVenta()">Agregar</button>
+    </div>
+
+    <table mat-table [dataSource]="opcionesVenta" class="mat-elevation-z1 full-width-table">
+      <ng-container matColumnDef="unidadMedidaId">
+        <th mat-header-cell *matHeaderCellDef>Unidad</th>
+        <td mat-cell *matCellDef="let o">{{ getDescripcionUnidad(o.unidadMedidaId) }}</td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="cantidadPorUnidad">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let o; let i = index">
+          <input type="number"
+                [(ngModel)]="opcionesVenta[i].cantidadPorUnidad"
+                [ngModelOptions]="{ standalone: true }"
+                min="0"
+                class="editable-input"
+                placeholder="0" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="precioVenta">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let o; let i = index">
+          <input type="number"
+                [(ngModel)]="opcionesVenta[i].precioVenta"
+                [ngModelOptions]="{ standalone: true }"
+                min="0"
+                class="editable-input"
+                placeholder="0" />
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let o; let i = index">
+          <button mat-icon-button color="warn" (click)="eliminarOpcionVenta(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      
+
+      <tr mat-header-row *matHeaderRowDef="['unidadMedidaId', 'cantidadPorUnidad', 'precioVenta', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['unidadMedidaId', 'cantidadPorUnidad', 'precioVenta', 'acciones'];"></tr>
+    </table>
+  </div>
+
+
+  <div class="botones-container">
+    <div class="boton-guardar">
+      <button mat-raised-button style="background-color: green;" type="button" (click)="guardarProducto()">Guardar producto</button>
+    </div>
+  
+    <div class="boton-cerrar">
+      <button mat-raised-button style="background-color: red;" type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+  
+  
+
+</form>

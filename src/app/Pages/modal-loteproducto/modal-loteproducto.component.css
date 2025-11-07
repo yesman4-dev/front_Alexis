@@ -1,0 +1,33 @@
+.lote-form-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .acciones-lote {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lote-table {
+    width: 100%;
+  }
+  
+  button {
+    border-radius: 15px;  /* Bordes redondeados */
+    padding: 10px 20px;  /* Ajusta el tamaño del botón si es necesario */
+  }
+
+  .editable-input {
+    width: 100px;
+    border: none;
+    background-color: transparent;
+    text-align: right;
+    font-weight: bold;
+  }
+  .editable-input:focus {
+    outline: none;
+    background-color: #e0f7fa;
+  }
+  

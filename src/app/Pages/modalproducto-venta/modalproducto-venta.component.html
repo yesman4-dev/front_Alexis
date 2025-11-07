@@ -1,0 +1,126 @@
+<mat-dialog-content class="modal-content" [formGroup]="productoForm">
+  <div class="modal-header">
+    <h2>Seleccionar Producto</h2>
+  </div>
+
+  <!-- Caja de Producto -->
+  <mat-form-field appearance="fill" class="form-field product-field">
+    <mat-label>Buscar Producto</mat-label>
+    <input matInput 
+          [matAutocomplete]="autoProducto"
+          formControlName="producto"
+          (input)="filtrarProductos($event)">
+    
+    <mat-autocomplete 
+        #autoProducto="matAutocomplete" 
+        [displayWith]="displayProducto"
+        (optionSelected)="productoSeleccionado($event)"> <!-- AQUÍ debe ir -->
+        
+      <mat-option *ngFor="let producto of productosFiltrados" [value]="producto">
+        {{ displayProducto(producto) }}
+      </mat-option>
+      
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <!-- 🔵 Indicador visual de stock -->
+<div *ngIf="stockActualProducto >= 0" class="stock-indicator mt-2">
+  <span *ngIf="stockActualProducto > 10" class="text-success">
+    🟢 Stock disponible: {{ stockActualProducto }}
+  </span>
+  <span *ngIf="stockActualProducto > 0 && stockActualProducto <= 10" class="text-warning">
+    🟡 Stock bajo: {{ stockActualProducto }}
+  </span>
+  <span *ngIf="stockActualProducto === 0" class="text-danger">
+    🔴 Sin stock disponible
+  </span>
+</div>
+
+
+  <!-- Select de Lotes -->
+<mat-form-field appearance="fill" class="form-field lotes-field" *ngIf="idRol !== 2">
+  <mat-label>Seleccionar Lote</mat-label>
+  <mat-select formControlName="loteProductoId">
+    <mat-option *ngFor="let lote of ListaLoteDeProducto" [value]="lote.id">
+      {{ lote.id }} - Ingreso: {{ lote.fechaIngreso | date:'shortDate' }} - Vence: {{ lote.fechaVencimiento | date:'shortDate' }} - Stock: {{ lote.stockActual }} - Precio compra: {{ lote.precioCompraUnitario }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+  <!-- Opciones de Venta (Radio buttons) -->
+<div *ngIf="opcionesVenta.length > 0" class="opciones-venta">
+  <mat-radio-group formControlName="opcionSeleccionadaId">
+    <mat-radio-button *ngFor="let opcion of opcionesVenta" [value]="opcion.id">
+      {{ getDescripcionUnidad(opcion.unidadMedidaId) }} - {{ opcion.precioVenta | currency:'HNL':'symbol' }}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+
+
+  <!-- Fila para Precio y Cantidad -->
+  <div class="input-row">
+    <mat-form-field appearance="fill" class="form-field price-field">
+      <mat-label>Precio de Venta</mat-label>
+      <input matInput type="number" formControlName="precioVenta">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field quantity-field">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" formControlName="cantidad">
+    </mat-form-field>
+
+    <!-- Botón para Agregar Producto -->
+    <button mat-icon-button color="primary" (click)="agregarProducto()" [disabled]="productoForm.invalid">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Tabla de Productos Seleccionados -->
+  <div class="product-table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+      <ng-container matColumnDef="nombreProducto">
+        <th mat-header-cell *matHeaderCellDef>Producto</th>
+        <td mat-cell *matCellDef="let element">{{ element.nombreProducto }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="precioVentaUnitario">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let element">{{ element.precioVentaUnitario | currency:'HNL':'symbol' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+        <td mat-cell *matCellDef="let element">{{ element.cantidad }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subtotal">
+        <th mat-header-cell *matHeaderCellDef>Subtotal</th>
+        <td mat-cell *matCellDef="let element">
+          {{ (element.precioVentaUnitario * element.cantidad) | currency:'HNL':'symbol' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="eliminarProducto(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+    </table>
+  </div>
+
+  <!-- Botón Confirmar -->
+  <div class="modal-footer">
+    <button mat-raised-button color="primary" (click)="confirmar()" [disabled]="detalleProductos.length === 0">
+      Confirmar
+    </button>
+    <button mat-button (click)="close()">Cancelar</button>
+  </div>
+</mat-dialog-content>

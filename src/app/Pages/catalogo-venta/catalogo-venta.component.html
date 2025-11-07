@@ -1,0 +1,26 @@
+<div class="catalog-container">
+  <!-- Nueva venta -->
+  <mat-card class="catalog-card" (click)="navigateTo('/add_venta')">
+    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">point_of_sale</mat-icon>
+    <span>Nueva Venta</span>
+  </mat-card>
+
+  <!-- Historial de ventas -->
+  <mat-card class="catalog-card" (click)="navigateTo('/lista_ventas')" *ngIf="idRol !== 2">
+    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">receipt_long</mat-icon>
+    <span>Historial Ventas</span>
+  </mat-card>
+
+  <!-- Créditos por ventas -->
+  <mat-card class="catalog-card" (click)="navigateTo('/creditosventa')" *ngIf="idRol !== 2">
+    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">payments</mat-icon>
+    <span>Crédito Ventas</span>
+  </mat-card>
+
+    <!-- Créditos por ventas -->
+  <mat-card class="catalog-card" (click)="navigateTo('/cotizar')" >
+    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">payments</mat-icon>
+    <span>Historial de precios a clientes</span>
+  </mat-card>
+
+</div>

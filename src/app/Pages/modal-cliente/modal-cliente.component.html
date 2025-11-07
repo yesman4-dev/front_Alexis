@@ -1,0 +1,55 @@
+<mat-dialog-content class="modal-container">
+  
+    <!-- Título del Modal -->
+    <div class="modal-header">
+      <div class="modal-title">
+        <h2>Editar Cliente</h2>
+        <div class="title-divider"></div>
+      </div>
+    </div> <!-- 🔹 Se cerró correctamente el div de la cabecera -->
+  
+    <form [formGroup]="clienteForm" (ngSubmit)="ActualizarCliente()" class="user-form">
+      
+      <!-- Nombre de cliente -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del Cliente</mat-label>
+        <input matInput formControlName="nombreCliente" required>
+      </mat-form-field>
+  
+      <!-- RTN -->
+      <mat-form-field appearance="outline">
+        <mat-label>RTN</mat-label>
+        <input matInput formControlName="rtn">
+      </mat-form-field>
+  
+      <!-- Dirección -->
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="direccion">
+      </mat-form-field>
+
+        <!-- Telefono -->
+      <mat-form-field appearance="outline">
+        <mat-label>Telefono</mat-label>
+        <input matInput formControlName="telefono">
+      </mat-form-field>
+  
+      <!-- Estado Activo/Inactivo -->
+      <mat-slide-toggle 
+        id="esActivo"
+        formControlName="esActivo"
+        (change)="onDisponibleChange($event)"
+      >
+        Cliente Activo
+      </mat-slide-toggle>
+  
+      <!-- Botones de Acción -->
+      <div class="btn-container">
+        <button mat-raised-button class="btn-create" type="submit">Actualizar</button>
+        <button mat-raised-button class="btn-cancel" (click)="cerrar()">Cancelar</button>
+      </div>
+  
+    </form>
+  
+  </mat-dialog-content>
+  

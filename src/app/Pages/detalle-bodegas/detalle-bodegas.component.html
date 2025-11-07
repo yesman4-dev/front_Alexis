@@ -1,0 +1,86 @@
+<div class="container">
+  <h2 class="titulo">Inventario General por Bodega</h2>
+
+  <div *ngIf="bodegas.length === 0" class="mensaje-vacio">
+    No hay inventario disponible.
+  </div>
+
+  <div *ngFor="let bodega of bodegas" class="bodega-card">
+    <button class="accordion" (click)="toggleBodega(bodega.bodegaId)">
+      <h3 class="nombre-bodega">{{ bodega.nombreBodega | uppercase }}</h3>
+    </button>
+
+    <div *ngIf="bodega.isOpen" class="contenido-bodega">
+
+      <div class="buscador-productos">
+        <input
+          type="text"
+          [(ngModel)]="bodega.filtro"
+          placeholder="🔍 Buscar producto..."
+          class="input-buscador"
+        />
+      </div>
+
+      <div class="acciones-bodega">
+        <button class="btn-generar-pdf" (click)="generarPDFPorBodega(bodega)">
+          📄 Generar PDF de esta bodega
+        </button>
+      </div>
+
+      <div *ngIf="filtrarProductos(bodega).length === 0" class="mensaje-vacio">
+        No hay productos que coincidan con el filtro.
+      </div>
+
+      <div *ngFor="let producto of filtrarProductos(bodega)" class="producto-card">
+        <div class="producto-header">
+          <div>
+            <h4 class="nombre-producto">{{ producto.nombreProducto }} / Laboratorio: {{ producto.laboratorioNombre }}</h4>
+            <p class="unidad-base">
+              Unidad base: <strong>{{ producto.unidadBase }}</strong>
+            </p>
+            <p class="stock-total">
+              Stock total (unidad base):
+              <span [class.stock-bajo]="producto.stockEnUnidadBase === 0">
+                {{ producto.stockEnUnidadBase }}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="presentaciones">
+          <table class="tabla-presentaciones">
+            <thead>
+              <tr>
+                <th>Presentación</th>
+                <th>Stock</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let presentacion of producto.presentaciones">
+                <td>{{ presentacion.unidadMedida }}</td>
+                <td [class.stock-bajo]="presentacion.stock === 0">{{ presentacion.stock }}</td>
+                <td>
+
+                  <button
+                    class="btn-rebajar" *ngIf="idRol !== 2"
+                    (click)="abrirModalRebajarStock(producto, bodega, presentacion)"
+                  >
+                    Rebajar en {{ presentacion.unidadMedida }}
+                  </button>
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="accion-mover" *ngIf="idRol !== 2">
+          <button class="btn-mover" (click)="modalMovimientoBodega(producto, bodega)">
+            Mover producto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<mat-dialog-content class="modal-container">
+  
+    <!-- Título del Modal -->
+    <div class="modal-header">
+      <div class="modal-title">
+        <h2>Editar Categoria de producto</h2>
+        <div class="title-divider"></div>
+      </div>
+    </div> <!-- 🔹 Se cerró correctamente el div de la cabecera -->
+  
+    <form [formGroup]="categoriaForm" (ngSubmit)="ActualizarCategoria()" class="user-form">
+      
+      <!-- Nombre de Usuario -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de la Categoria</mat-label>
+        <input matInput formControlName="descripcion" required>
+      </mat-form-field>
+  
+      <!-- Estado Activo/Inactivo -->
+      <mat-slide-toggle 
+        id="esActivo"
+        formControlName="esActivo"
+        (change)="onDisponibleChange($event)"
+      >
+        Categoria Activa
+      </mat-slide-toggle>
+  
+      <!-- Botones de Acción -->
+      <div class="btn-container">
+        <button mat-raised-button class="btn-create" type="submit">Actualizar</button>
+        <button mat-raised-button class="btn-cancel" (click)="cerrar()">Cancelar</button>
+      </div>
+  
+    </form>
+  
+  </mat-dialog-content>
+  

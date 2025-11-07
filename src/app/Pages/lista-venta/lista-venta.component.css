@@ -1,0 +1,113 @@
+.table-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #3f51b5;
+  font-weight: 600;
+}
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.filter-field {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+.producto-autocomplete {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Fondo blanco al input del autocomplete */
+.producto-autocomplete .mat-form-field-appearance-outline .mat-form-field-flex {
+  background-color: white !important;
+  border-radius: 4px;
+}
+
+/* Fondo blanco al input real dentro del form field */
+.producto-autocomplete input.mat-input-element {
+  background-color: transparent !important;
+  color: black !important;
+}
+
+
+
+.autocomplete-field {
+  width: 70%;
+  min-width: 280px;
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+}
+
+mat-header-cell {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #333;
+}
+
+mat-cell {
+  text-align: center;
+}
+
+table tr:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+@media screen and (max-width: 768px) {
+  .autocomplete-field {
+    width: 100%;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-field {
+    width: 100%;
+  }
+
+  .buttons-container {
+    justify-content: flex-start;
+  }
+}

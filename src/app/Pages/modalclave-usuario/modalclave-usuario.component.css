@@ -1,0 +1,13 @@
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 10px; /* Espacio entre los botones */
+    width: 100%;
+  }
+  
+  .rounded-button {
+    border-radius: 20px; /* Bordes redondos */
+    padding: 10px 20px; /* Ajuste de tamaño */
+    font-size: 16px; /* Tamaño del texto */
+  }
+  

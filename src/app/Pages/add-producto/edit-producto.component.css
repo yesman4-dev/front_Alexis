@@ -1,0 +1,145 @@
+/* Tamaños y diseño */
+.producto-form {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.form-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 32px;
+}
+
+.form-title {
+  margin-bottom: 16px;
+  font-size: 20px;
+  color: #321ae9;
+  font-weight: 600;
+}
+
+/* Diseño de los campos */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  padding-top: 12px;
+}
+
+/* Tabla y botones */
+.full-width-table {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.venta-form-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.botones-container {
+  display: flex;
+  justify-content: space-between;  /* Para alinear los botones a los extremos */
+  gap: 10px;  /* Espacio entre los botones */
+  margin-top: 24px; /* Para que los botones tengan un margen superior */
+}
+
+.boton-guardar, .boton-cerrar {
+  margin: 0;  /* Esto elimina cualquier margen extra */
+  text-align: center; /* Aunque este es opcional, no afectará mucho en flex */
+}
+
+button {
+  border-radius: 15px;  /* Bordes redondeados */
+  padding: 10px 20px;  /* Ajusta el tamaño del botón si es necesario */
+}
+
+
+.imagen-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.preview-container {
+  max-width: 200px;
+  max-height: 200px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.preview-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .producto-form {
+    padding: 10px;
+  }
+
+  .form-card {
+    padding: 16px;
+  }
+
+  .preview-container {
+    max-width: 100%;
+  }
+
+  .form-title {
+    font-size: 18px;
+  }
+
+  .busqueda-container {
+    position: static;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+
+.select-with-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select-with-button mat-form-field {
+  flex: 1;
+}
+
+
+  .editable-input {
+    width: 100%;
+    padding: 4px;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+  }
+  .editable-input:focus {
+    outline: none;
+    border-bottom: 2px solid #3f51b5; /* azul Angular */
+  }

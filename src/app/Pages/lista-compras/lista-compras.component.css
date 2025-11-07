@@ -1,0 +1,37 @@
+/* Lista de compras */
+.table-container {
+  padding: 20px;
+}
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.filter-field {
+  margin-right: 10px;
+  width: 200px;
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+mat-header-cell {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+mat-cell {
+  text-align: center;
+}
+
+mat-form-field {
+  margin: 10px;
+}

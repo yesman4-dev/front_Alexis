@@ -1,0 +1,122 @@
+.container {
+    background-color: #fff;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+  }
+  
+  .titulo {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3f51b5;
+  }
+  
+  .form-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+  
+  .form-field {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .subtitulo {
+    margin-top: 2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .badge {
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0.3em 1em;
+    font-size: 0.9rem;
+  }
+  
+  .table-container {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+  }
+  
+  table {
+    width: 100%;
+    min-width: 600px;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .mat-icon-button {
+    transition: transform 0.3s ease;
+  }
+  
+  .mat-icon-button:hover {
+    transform: scale(1.2);
+  }
+  
+  .total-section {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .total-section span {
+    color: #388e3c;
+  }
+  
+  .button-container {
+    margin-top: 2rem;
+    text-align: right;
+  }
+  
+  button[mat-raised-button] {
+    transition: all 0.3s ease;
+  }
+  
+  button[mat-raised-button]:hover {
+    transform: translateY(-2px);
+  }
+  
+  button {
+    border-radius: 15px;  /* Bordes redondeados */
+    padding: 10px 20px;  /* Ajusta el tamaño del botón si es necesario */
+  }
+
+  
+  .editable-input {
+    width: 100%;
+    padding: 4px;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+  }
+  .editable-input:focus {
+    outline: none;
+    border-bottom: 2px solid #3f51b5; /* azul Angular */
+  }
+  

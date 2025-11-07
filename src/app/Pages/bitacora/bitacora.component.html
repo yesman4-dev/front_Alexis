@@ -1,0 +1,37 @@
+<form class="card p-4 mb-4 shadow-sm" (ngSubmit)="cargarNotificaciones()">
+  <h5 class="mb-3">Filtrar Bitácora por Fechas</h5>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-5">
+      <label for="inicio" class="form-label">Fecha inicio:</label>
+      <input type="date" id="inicio" [(ngModel)]="fechaInicio" name="fechaInicio" class="form-control" required>
+    </div>
+
+    <div class="col-md-5">
+      <label for="fin" class="form-label">Fecha fin:</label>
+      <input type="date" id="fin" [(ngModel)]="fechaFin" name="fechaFin" class="form-control" required>
+    </div>
+
+    <div class="col-md-2 d-grid">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="notificaciones.length > 0; else noData">
+  <div class="list-group shadow-sm">
+    <div *ngFor="let item of notificaciones" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h6 class="mb-1">{{ item.tipo }}</h6>
+        <small class="text-muted">{{ item.fecha | date: 'short' }}</small>
+      </div>
+      <p class="mb-1">{{ item.mensaje }}</p>
+      <small class="text-muted">ID relacionado: {{ item.entidadRelacionadaId }}</small>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="alert alert-warning mt-3" role="alert">
+    No hay notificaciones para el rango seleccionado.
+  </div>
+</ng-template>

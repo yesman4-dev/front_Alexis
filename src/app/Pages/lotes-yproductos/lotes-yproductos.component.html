@@ -1,0 +1,72 @@
+<div class="contenedor-lotes">
+
+  <h2 class="titulo">Lotes Próximos a Vencer</h2>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="cargando" class="spinner">
+    <p>Cargando lotes... ⏳</p>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Tabla de lotes -->
+  <div *ngIf="!cargando && !error && lotesPaginados.length > 0" class="tabla-responsive">
+    <table class="tabla-lotes">
+      <thead>
+        <tr>
+          <th>Bodega</th>
+          <th>Producto</th>
+          <th>Presentación</th>
+          <th>Código Lote</th>
+          <th>Vencimiento</th>
+          <th>Días Restantes</th>
+          <th>Stock Cajas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lote of lotesPaginados"
+            [ngClass]="{
+              'critico': lote.diasRestantes <= 30,
+              'advertencia': lote.diasRestantes > 30 && lote.diasRestantes <= 60,
+              'ok': lote.diasRestantes > 60 && lote.diasRestantes <= 90
+            }">
+          <td>{{ lote.bodega }}</td>
+          <td>{{ lote.producto }}</td>
+          <td>{{ lote.presentacion }}</td>
+          <td>{{ lote.codigoLote }}</td>
+          <td>{{ lote.fechaVencimiento | date:'dd/MM/yyyy' }}</td>
+          <td>
+            {{ lote.diasRestantes }}
+            <span [title]="'Estado de vencimiento'"
+                  [ngClass]="{
+                    'icon-rojo': lote.diasRestantes <= 30,
+                    'icon-naranja': lote.diasRestantes > 30 && lote.diasRestantes <= 60,
+                    'icon-verde': lote.diasRestantes > 60 && lote.diasRestantes <= 90
+                  }">⬤</span>
+          </td>
+          <td>{{ lote.stockActual }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mensaje si no hay lotes -->
+  <div *ngIf="!cargando && !error && lotes.length === 0" class="sin-datos">
+    <p>No se encontraron lotes próximos a vencer. 🎉</p>
+  </div>
+
+  <!-- Paginación -->
+  <div *ngIf="totalPaginas > 1" class="paginacion">
+    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">« Anterior</button>
+
+    <ng-container *ngFor="let pagina of [].constructor(totalPaginas); let i = index">
+      <button (click)="cambiarPagina(i + 1)" [class.activo]="paginaActual === (i + 1)">{{ i + 1 }}</button>
+    </ng-container>
+
+    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente »</button>
+  </div>
+
+</div>

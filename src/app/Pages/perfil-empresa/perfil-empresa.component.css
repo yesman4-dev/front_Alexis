@@ -1,0 +1,92 @@
+.perfil-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.portada {
+  position: relative;
+  height: 250px;
+  background-color: #1a0dab;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.logo-portada-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 160px;
+  height: 160px;
+  border: 6px solid white;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s;
+}
+
+.logo-portada-label:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.logo-portada {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cambiar-logo-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 6px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.logo-portada-label:hover .cambiar-logo-overlay {
+  opacity: 1;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  padding: 60px 40px 30px;
+  margin-top: -80px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-empresa .mat-form-field {
+  margin-bottom: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.acciones {
+  display: flex;
+  justify-content: space-between; /* Distribuir los botones a lo largo de la línea */
+  margin-top: 30px;
+}
+
+button[mat-raised-button] {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 32px;
+  width: 48%; /* Asegura que los botones no se sobrepongan y queden espaciados */
+}
+
+button[mat-raised-button].warn {
+  margin-right: 10px; /* Añade un pequeño margen a la derecha del botón Restablecer */
+}

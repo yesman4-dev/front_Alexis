@@ -1,0 +1,379 @@
+.trueque-card {
+  padding: 2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  background-color: #fff;
+}
+
+.trueque-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2e2e2e;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.cliente-info {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.trueque-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.trueque-box {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e0e0e0;
+  min-height: 200px;
+}
+
+.entregados {
+  background-color: #e3f2fd;
+}
+
+.recibidos {
+  background-color: #e8f5e9;
+}
+
+.trueque-box-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #2e2e2e;
+}
+
+.trueque-empty {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.trueque-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.trueque-resumen {
+  background-color: #fdfdfd;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.trueque-resumen-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2e2e2e;
+}
+
+.trueque-resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.resumen-item label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.resumen-monto {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.text-entregado {
+  color: #1976d2;
+}
+
+.text-recibido {
+  color: #388e3c;
+}
+
+.text-favor {
+  color: #2e7d32;
+}
+
+.text-contra {
+  color: #c62828;
+}
+
+.text-neutral {
+  color: #757575;
+}
+
+/* NUEVO para el resumen final */
+.trueque-balance-final {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background-color: #f1f8e9;
+  border: 1px solid #c5e1a5;
+  text-align: center;
+}
+
+.trueque-balance-final h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #33691e;
+  margin-bottom: 0.5rem;
+}
+
+.trueque-balance-monto {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.text-saldo-a-favor {
+  color: #2e7d32;
+}
+
+.text-saldo-en-contra {
+  color: #c62828;
+}
+
+.text-saldo-cero {
+  color: #757575;
+}
+
+/* Extra mejora para botón agregar */
+.form-boton-agregar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* Sombra extra para tarjetas internas */
+.producto-form-card {
+  margin-bottom: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+/* Alinear texto en lista */
+mat-list-item {
+  font-size: 0.95rem;
+  color: #444;
+  padding: 0.25rem 0;
+}
+
+/* Mejora radio buttons */
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+.unidad-medida-section {
+  margin-top: 12px;
+  padding: 10px 0;
+  border-top: 1px dashed #ccc;
+}
+
+.unidad-medida-label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.unidad-medida-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.entrega-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+}
+
+.tabla-detalles {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.tabla-detalles th, .tabla-detalles td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.recibido {
+  background-color: #e6ffe6; /* verde claro */
+}
+
+.entregado {
+  background-color: #fff5f5; /* rojo claro */
+}
+
+.cerrado {
+  color: #999;
+}
+
+.abierto {
+  color: #28a745;
+}
+
+.detalles-grid {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.detalle-card {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.detalle-card.entregado {
+  border-left: 4px solid #1976d2; /* azul farmacia */
+}
+
+.detalle-card.recibido {
+  border-left: 4px solid #388e3c; /* verde cliente */
+}
+
+.tabla-detalles {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-detalles th,
+.tabla-detalles td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-detalles th {
+  text-align: left;
+  font-weight: 600;
+  background: #f5f5f5;
+}
+
+.entrega-card {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.saldo-favor {
+  color: green;
+  font-weight: bold;
+}
+
+.saldo-contra {
+  color: red;
+  font-weight: bold;
+}
+
+.saldo-cero {
+  color: gray;
+  font-style: italic;
+}
+
+.header-trueques {
+  display: flex;
+  justify-content: space-between; /* título a la izquierda, botón a la derecha */
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.fila-cantidad-precio {
+  display: flex;
+  gap: 1rem;            /* espacio entre campos */
+  margin-top: 1rem;
+}
+
+.fila-cantidad-precio mat-form-field {
+  flex: 1;              /* ambos ocupan el mismo ancho */
+  min-width: 120px;     /* no se encogen demasiado */
+}
+
+/* 🔹 Contenedor de los botones de acción */
+.acciones-trueque {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* 💰 Botón COBRAR (Ingreso del cliente) */
+.btn-cobrar {
+  background-color: #43a047 !important; /* verde */
+  color: white !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cobrar:hover {
+  background-color: #2e7d32 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+}
+
+/* 💸 Botón PAGAR (Egreso de farmacia al cliente) */
+.btn-pagar {
+  background-color: #e53935 !important; /* rojo */
+  color: white !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-pagar:hover {
+  background-color: #c62828 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+}
+
+/* 📄 Botón PDF */
+.btn-pdf {
+  background-color: #1976d2 !important; /* azul */
+  color: white !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-pdf:hover {
+  background-color: #0d47a1 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+}
+
+/* Íconos un poco más grandes */
+.acciones-trueque mat-icon {
+  font-size: 22px;
+  margin-right: 6px;
+  vertical-align: middle;
+}

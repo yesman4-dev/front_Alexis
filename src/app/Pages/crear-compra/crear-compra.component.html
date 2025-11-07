@@ -1,0 +1,135 @@
+<div class="crear-compra-wrapper">
+    <mat-card class="crear-compra-card">
+      <h1>📦 Registrar Nueva Compra</h1>
+  
+      <form [formGroup]="compraForm" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Transacción</mat-label>
+          <mat-select formControlName="tipoTransaccionId" required>
+            <mat-option *ngFor="let tipo of Tipotransaccionlista" [value]="tipo.id">
+              {{ tipo.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+        <mat-label>Proveedor</mat-label>
+        
+        <input type="text"
+              matInput
+              [matAutocomplete]="autoProveedor"
+              formControlName="proveedorId"
+              (input)="filtrarProveedores($event)">
+              
+        <!-- Icono de + dentro del campo -->
+        <button mat-icon-button matSuffix (click)="abrirModalProveedor()"
+                matTooltip="Agregar nuevo proveedor">
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <mat-autocomplete #autoProveedor="matAutocomplete" [displayWith]="displayProveedor">
+          <mat-option *ngFor="let prov of proveedoresFiltrados" [value]="prov.id">
+            {{ prov.nombreProveedor }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+      </form>
+  
+      <div class="acciones-bar">
+        <button mat-raised-button color="accent" (click)="abrirDialogBuscarProducto()">
+          <mat-icon>search</mat-icon> Buscar producto
+        </button>
+      </div>
+      
+      <!-- Etiqueta de sección -->
+      <h2 class="seccion-titulo">🧾 Detalle de la Compra</h2>
+        
+      <!-- Tabla de detalles de productos -->
+      <div class="tabla-container">
+        <table mat-table [dataSource]="detalleDataSource" class="mat-elevation-z8">
+  
+          <ng-container matColumnDef="producto">
+            <th mat-header-cell *matHeaderCellDef> Producto/Lab </th>
+            <td mat-cell *matCellDef="let elemento"> {{elemento.nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="presentacionContenidoNombre">
+            <th mat-header-cell *matHeaderCellDef> Presentación Contenido </th>
+            <td mat-cell *matCellDef="let elemento"> {{elemento.presentacionContenidoNombre}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="unidadMedidaNombre">
+            <th mat-header-cell *matHeaderCellDef> U.M mas Grande </th>
+            <td mat-cell *matCellDef="let elemento"> {{elemento.unidadMedidaNombre}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef> Precio Compra Unit. </th>
+            <td mat-cell *matCellDef="let elemento">
+              <input type="number"
+                     [(ngModel)]="elemento.precio"
+                     [ngModelOptions]="{standalone: true}"
+                     (keydown.enter)="calcularTotalCompra()"
+                     (blur)="calcularTotalCompra()"
+                     class="editable-input" />
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let elemento">
+              <input type="number"
+                     [(ngModel)]="elemento.cantidad"
+                     [ngModelOptions]="{standalone: true}"
+                     (keydown.enter)="calcularTotalCompra()"
+                     (blur)="calcularTotalCompra()"
+                     class="editable-input" />
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="lotes">
+            <th mat-header-cell *matHeaderCellDef> Lotes </th>
+            <td mat-cell *matCellDef="let elemento">
+              <button mat-icon-button color="primary" (click)="abrirDialogoLotes(elemento)">
+                <mat-icon>inventory_2</mat-icon>
+              </button>
+              <span *ngIf="elemento.lotes?.length">({{ elemento.lotes.length }} lotes)</span>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let elemento">
+              <button mat-icon-button color="warn" (click)="eliminarFila(elemento)">
+                <mat-icon>delete</mat-icon>
+              </button>              
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+        </table>
+      </div>
+  
+      <div class="resumen">
+        <span>Total: <strong>{{ totalCompra | currency:'HNL':'symbol' }}</strong></span>
+      </div>
+      
+  
+    <div class="acciones-finales">
+      <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="isLoading" 
+        (click)="CrearCompra()">
+        <mat-icon *ngIf="!isLoading">save</mat-icon>
+        {{ isLoading ? 'Cargando...' : 'Guardar Compra' }}
+      </button>
+    </div>
+
+    </mat-card>
+  </div>
+  

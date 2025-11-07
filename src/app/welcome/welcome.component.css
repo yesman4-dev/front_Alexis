@@ -1,0 +1,10 @@
+.welcome-screen {
+    text-align: center;
+  }
+  
+  .welcome-image {
+    width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Esto centra horizontalmente la imagen */
+  }

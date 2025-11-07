@@ -1,0 +1,23 @@
+.contenido-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario-lote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.mat-form-field {
+  width: 100%;
+  max-width: 250px;
+}
+
+.tabla-lotes {
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow: auto;
+}

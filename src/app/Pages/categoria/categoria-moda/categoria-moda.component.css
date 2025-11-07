@@ -1,0 +1,85 @@
+.modal-header {
+    position: relative; /* Necesario para usar position: absolute en los hijos */
+    display: flex;
+    justify-content: center; /* Centra el título */
+    align-items: center;
+    height: 50px; /* Ajusta la altura según lo necesites */
+  }
+
+  
+  .modal-container {
+    width: 90%; /* Usa un porcentaje para que ocupe el 90% del ancho de la pantalla */
+    max-width: 400px; /* Asegura que no se haga más grande que 400px */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  @media (max-width: 600px) {
+    .modal-container {
+      width: 100%; /* En pantallas pequeñas, el modal puede ocupar todo el ancho */
+      padding: 10px;
+    }
+  }
+  
+  /* Título */
+  .modal-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e63472;
+    margin-bottom: 15px;
+  }
+  
+  .title-divider {
+    width: 60px;
+    height: 4px;
+    background: #e63472;
+    margin: 5px auto 20px auto;
+    border-radius: 2px;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    justify-content: center;
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn-create {
+    background-color: #e63472 !important;
+    color: white !important;
+    box-shadow: 0 0 15px #f50057;
+  }
+  
+  .btn-create:hover {
+    background-color: red !important;
+    box-shadow: 0 0 25px #cb0773 !important;
+  }
+  
+  .btn-cancel {
+    background-color: #cccccc !important;
+    color: black !important;
+  }
+  
+
+  

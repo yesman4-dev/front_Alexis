@@ -1,0 +1,64 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.card-form,
+.card-filtro,
+.card-tabla {
+  padding: 20px;
+}
+
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+mat-form-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+button {
+  align-self: flex-end;
+  min-width: 120px;
+}
+
+.tabla-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  min-width: 600px;  /* Puedes ajustar el tamaño mínimo según tus necesidades */
+  table-layout: auto;
+}
+
+
+mat-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .formulario {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}

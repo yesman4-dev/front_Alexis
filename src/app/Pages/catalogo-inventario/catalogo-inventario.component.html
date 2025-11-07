@@ -1,0 +1,41 @@
+<div class="catalog-wrapper">
+
+       <div class="catalog-container">
+      <!-- Mostrar solo si NO es rol 2 -->
+      <mat-card class="catalog-card" *ngIf="idRol !== 2" (click)="navigateTo('/addproducto')">
+        <mat-icon fontSet="material-icons-outlined">add_box</mat-icon>
+        <span>Nuevo Producto</span>
+      </mat-card>
+
+      <!-- Mostrar SIEMPRE (todos pueden editar producto) -->
+      <mat-card class="catalog-card" (click)="navigateTo('/editar_producto')">
+        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+        <span>Editar Producto</span>
+      </mat-card>
+
+      <!-- Mostrar solo si NO es rol 2 -->
+      <mat-card class="catalog-card" *ngIf="idRol !== 2" (click)="navigateTo('/lotes')">
+        <mat-icon fontSet="material-icons-outlined">assignment_return</mat-icon>
+        <span>Lotes y productos</span>
+      </mat-card>
+
+      <mat-card class="catalog-card" (click)="navigateTo('detalle_bodegas')">
+        <mat-icon fontSet="material-icons-outlined">warehouse</mat-icon>
+        <span>Bodegas y productos</span>
+        </mat-card>
+      </div>
+
+    <div class="chart-container">
+      <h3 class="chart-title">Distribución de productos por bodegas</h3>
+      <canvas baseChart
+              [data]="pieChartData"
+              [options]="pieChartOptions"
+              [type]="pieChartType">
+      </canvas>
+    </div>
+
+    
+
+</div>
+
+

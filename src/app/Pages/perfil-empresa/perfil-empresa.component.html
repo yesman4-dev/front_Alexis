@@ -1,0 +1,55 @@
+<div class="perfil-container">
+    <!-- Portada con logo centrado tipo avatar -->
+    <div class="portada" [ngStyle]="{ 'background-image': 'linear-gradient(#321ae9, #120778)' }">
+      <label for="logoInput" class="logo-portada-label">
+        <img [src]="logoPortadaUrl" alt="Logo de la empresa" class="logo-portada" />
+        <div class="cambiar-logo-overlay">Cambiar logo</div>
+      </label>
+      <input type="file" id="logoInput" (change)="onLogoSeleccionado($event)" hidden />
+    </div>
+  
+    <!-- Card tipo perfil -->
+    <div class="form-card">
+      <form [formGroup]="empresaForm" class="formulario-empresa">
+  
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Nombre de la Empresa</mat-label>
+          <input matInput formControlName="nombreEmpresa">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>RTN</mat-label>
+          <input matInput formControlName="rtn">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="direccion">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Eslogan</mat-label>
+          <input matInput formControlName="eslogan">
+        </mat-form-field>
+  
+        <div class="acciones">
+          <!-- Botón para guardar cambios -->
+          <button mat-raised-button color="accent" (click)="guardarCambios()" [disabled]="cargando">
+            {{ cargando ? 'Guardando...' : 'Guardar Cambios' }}
+          </button>
+  
+          <!-- Botón para restablecer el formulario -->
+          <button mat-raised-button color="warn" (click)="restablecerFormulario()" [disabled]="cargando">
+            Restablecer
+          </button>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+  

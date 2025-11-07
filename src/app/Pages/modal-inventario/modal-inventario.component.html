@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Agregar lotes para <strong>{{ data.nombreproducto }}</strong> ({{data.unidadMedidaNombre}})</h2>
+
+<mat-dialog-content class="contenido-modal">
+  <form [formGroup]="loteForm" class="formulario-lote">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Bodega</mat-label>
+      <mat-select formControlName="bodegaId">
+        <mat-option *ngFor="let bodega of Bodegalista" [value]="bodega.id">
+          {{ bodega.descripcion }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de vencimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaVencimiento">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" formControlName="cantidad" min="1">
+    </mat-form-field>
+
+      <mat-form-field appearance="fill">
+      <mat-label>Precio Compra</mat-label>
+      <input matInput type="number" formControlName="precioCompraUnitario" min="1">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="agregarLote()" [disabled]="loteForm.invalid">
+      Agregar lote
+    </button>
+  </form>
+
+  <mat-table [dataSource]="dataSource" class="tabla-lotes" matSort>
+    <ng-container matColumnDef="bodegaId">
+      <mat-header-cell *matHeaderCellDef>Bodega</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ getDescripcionBodega(element.bodegaId) }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaVencimiento">
+      <mat-header-cell *matHeaderCellDef>Fecha Venc.</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.fechaVencimiento | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.cantidad }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="eliminarLote(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cancelar</button>
+  <button mat-raised-button color="accent" (click)="guardarInventario()" [disabled]="lotes.length === 0">
+    Guardar Inventario
+  </button>
+</mat-dialog-actions>

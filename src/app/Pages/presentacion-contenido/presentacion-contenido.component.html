@@ -1,0 +1,62 @@
+<mat-card class="card-container">
+    <mat-tab-group>
+      <!-- Formulario para agregar proveedor -->
+      <mat-tab label="Agregar Presentacion de contenido">
+        <form [formGroup]="presentacionForm" (ngSubmit)="agregarPresentacion()" class="user-form">
+          
+            <h1></h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Describa el tipo de presentacion</mat-label>
+            <input matInput formControlName="descripcion" required>
+          </mat-form-field>
+
+
+          <div class="btn-container">
+            <button mat-raised-button class="btn-create">Agregar nueva Presentacion</button>
+          </div>
+          
+          <h1></h1>
+       </form>
+      </mat-tab>
+  
+      <mat-tab label="Lista de Presentaciones">
+        <h1></h1>
+        <!-- Caja de búsqueda -->
+        <mat-form-field appearance="outline" class="search-box">
+          <mat-label>Buscar Presentaciones</mat-label>
+          <input matInput (keyup)="filtrarPresentaciones($event)" placeholder="Nombre de la Presentacion">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      
+        <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+      
+          <!-- Nombre de nombreProveedor -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let user"> {{ user.descripcion }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="esActivo">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let user"> {{ user.esActivo }} </td>
+          </ng-container>
+   
+      
+          <!-- Botón de editar -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="accent" (click)="editarPresentacion(user)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+      
+    </mat-tab-group>
+  </mat-card>
+  

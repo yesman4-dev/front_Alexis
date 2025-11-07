@@ -1,0 +1,217 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center; /* Centra el contenido horizontalmente */
+  padding-top: 50px; /* Ajuste para dar espacio por encima */
+  max-width: 400px; /* Limita el tamaño máximo */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Añade un poco de padding en los laterales */
+  z-index: 1; /* Asegura que se muestre por encima del fondo */
+}
+
+
+
+/* Estilos generales para la empresa (logo, nombre, eslogan) */
+.empresa-info {
+  text-align: center;
+  margin-bottom: 30px; /* Aumenté el margen para que haya un poco más de espacio debajo */
+}
+
+/* Logo de la empresa */
+.empresa-logo {
+  max-width: 150px; /* Aumenté el tamaño del logo para que sea más prominente */
+  border-radius: 50%;
+  margin-bottom: 10px; /* Más espacio debajo del logo */
+}
+
+/* Detalles de la empresa */
+.empresa-details {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.4;
+  color: #ffffff; /* Hacemos el texto blanco para contrastar con el fondo morado */
+}
+
+
+/* Nombre de la empresa */
+.empresa-name {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff; /* Blanco para asegurar contraste con el fondo oscuro */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agregamos sombra para darle más impacto */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto que se salga del contenedor */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto se corta */
+  line-height: 1.2; /* Ajusta el alto de la línea para darle más espacio */
+  margin-top: 10px; /* Añade un poco de espacio arriba */
+  margin-bottom: 10px; /* Añade un poco de espacio abajo */
+}
+
+/* Estilos para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+  .empresa-name {
+    font-size: 2.2rem; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    letter-spacing: 1px; /* Reduce el espacio entre letras */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para que no sea tan fuerte */
+  }
+}
+
+/* Estilos para pantallas muy pequeñas (teléfonos móviles pequeños) */
+@media (max-width: 480px) {
+  .empresa-name {
+    font-size: 1.8rem; /* Aún más pequeño para pantallas muy pequeñas */
+    letter-spacing: 0px; /* Quita el espaciado entre letras */
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3); /* Sombra aún más ligera */
+  }
+}
+
+
+/* Eslogan de la empresa */
+.empresa-eslogan {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #d3d3d3; /* Gris claro para no competir con el nombre */
+  font-weight: 500;
+}
+
+/* Estilo para la tarjeta de login */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 40px; /* Esto asegura que no quede pegada al logo */
+  background-color: white;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 10px;
+  border-radius: 30px; /* Bordes redondeados para todos los botones */
+  border: none; /* Sin bordes predeterminados */
+  font-weight: bold; /* Negrita para que el texto sea más destacable */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave para hover */
+}
+
+.session-info {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espacio entre los botones */
+}
+
+/* Estilo para el botón de login */
+.btn-login {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Sombra suave */
+  text-transform: uppercase; /* Texto en mayúsculas */
+}
+
+.btn-login:hover {
+  background-color: #45a049;
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
+}
+
+/* Estilo para el botón de logout */
+.btn-logout {
+  width: 45%;
+  background-color: #f44336;
+  color: white;
+  padding: 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+  text-transform: uppercase;
+}
+
+.btn-logout:hover {
+  background-color: #e53935;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón de home */
+.btn-home {
+  width: 45%;
+  background-color: #2196f3;
+  color: white;
+  padding: 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.2);
+  text-transform: uppercase;
+}
+
+.btn-home:hover {
+  background-color: #1e88e5;
+  transform: scale(1.05);
+}
+
+
+mat-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Asegurando que el contenedor del menu lateral no interfiera con el login */
+.sidenav-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 0; /* Se asegura que el menu esté detrás del login */
+}
+
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+  background: #2C2C2C;
+  color: white;
+}
+
+/* Barra superior */
+.toolbar {
+  background: #2C2C2C;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #321ae9;
+}

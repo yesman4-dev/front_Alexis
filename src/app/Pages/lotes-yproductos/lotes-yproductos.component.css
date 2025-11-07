@@ -1,0 +1,119 @@
+.contenedor-lotes {
+  padding: 20px;
+  max-width: 100%;
+}
+
+.titulo {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.spinner, .error, .sin-datos {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+}
+
+.tabla-responsive {
+  overflow-x: auto;
+}
+
+.tabla-lotes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabla-lotes th, .tabla-lotes td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.tabla-lotes th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.critico {
+  background-color: #ffcccc; /* Rojo clarito */
+}
+
+.advertencia {
+  background-color: #fff3cd; /* Amarillo clarito */
+}
+
+@media (max-width: 600px) {
+  .tabla-lotes th, .tabla-lotes td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+}
+
+.paginacion {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.paginacion button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.paginacion button:hover:not([disabled]) {
+  background-color: #e0e0e0;
+}
+
+.paginacion button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.paginacion button.activo {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-color: #007bff;
+}
+
+.critico {
+  background-color: #ffdddd;
+  color: #a70000;
+  font-weight: bold;
+}
+
+.advertencia {
+  background-color: #fff3cd;
+  color: #856404;
+  font-weight: bold;
+}
+
+.ok {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+}
+
+.icon-rojo {
+  color: red;
+  margin-left: 5px;
+}
+
+.icon-naranja {
+  color: orange;
+  margin-left: 5px;
+}
+
+.icon-verde {
+  color: green;
+  margin-left: 5px;
+}

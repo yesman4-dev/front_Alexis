@@ -1,0 +1,420 @@
+<mat-card class="trueque-card">
+  <h2 class="trueque-title">📦 Registro de Trueque</h2>
+
+  <!-- Buscar Cliente (visible siempre) -->
+  <div class="form-section" style="margin-bottom: 1rem;">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Buscar cliente</mat-label>
+      <input matInput (input)="filtrarClientes($event)" [matAutocomplete]="autoCliente">
+      <mat-autocomplete #autoCliente="matAutocomplete" (optionSelected)="onClienteSeleccionado($event.option.value)">
+        <mat-option *ngFor="let cliente of ClienteFiltrados" [value]="cliente">
+          {{ cliente.nombreCliente }} - {{ cliente.telefono }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div *ngIf="clienteSeleccionadoId !== null" class="cliente-info">
+      <strong>Cliente ID:</strong> {{ clienteSeleccionadoId }} <br>
+      <strong>Nombre:</strong> {{ displayCLiente(clienteSeleccionadoId) }}
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <mat-tab-group color="accent">
+    <!-- Tab 1: Formulario Trueque -->
+    <mat-tab label="Formulario">
+      <form [formGroup]="productoForm" style="margin-top: 1rem;">
+
+        <mat-card class="producto-form-card">
+          <h3 class="producto-form-title">➕ Agregar Producto</h3>
+
+          <div class="form-producto-grid">
+            <!-- Producto -->
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Buscar producto</mat-label>
+              <input type="text"
+                    matInput
+                    (input)="filtrarProductos($event)"
+                    [matAutocomplete]="autoProducto"
+                    [formControl]="productoControl">
+
+              <mat-autocomplete
+                #autoProducto="matAutocomplete"
+                (optionSelected)="productoSeleccionado($event)"
+                [displayWith]="displayProducto">
+                <mat-option *ngFor="let prod of productosFiltrados" [value]="prod">
+                  {{ displayProducto(prod) }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <!-- Unidades de medida disponibles -->
+            <div *ngIf="opcionesVenta.length > 0" class="unidad-medida-section">
+              <label class="unidad-medida-label">Selecciona la unidad de medida:</label>
+
+              <mat-radio-group class="unidad-medida-group" formControlName="opcionSeleccionadaId">
+                <mat-radio-button *ngFor="let opcion of opcionesVenta" [value]="opcion.id">
+                  {{ getDescripcionUnidad(opcion.unidadMedidaId) }} — L {{ opcion.precioVenta | number:'1.2-2' }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <!-- Stock -->
+            <div class="stock-label">
+              <strong>Stock actual:</strong> {{ stockActualProducto }}
+            </div>
+
+            <!-- Cantidad -->
+            <mat-form-field appearance="fill">
+              <mat-label>Cantidad</mat-label>
+              <input type="number" matInput formControlName="cantidad" min="1">
+            </mat-form-field>
+
+            <!-- Precio -->
+            <mat-form-field appearance="fill">
+              <mat-label>Precio Costo Unitario</mat-label>
+              <input type="number" matInput formControlName="precioCosto" min="0.01">
+            </mat-form-field>
+
+            <!-- Tipo -->
+            <mat-radio-group formControlName="esRecibido" class="radio-group">
+              <mat-radio-button [value]="false">💊 Lo entrega mi farmacia</mat-radio-button>
+              <mat-radio-button [value]="true">📦 Lo recibo del cliente</mat-radio-button>
+            </mat-radio-group>
+
+            <!-- Botón -->
+            <div class="form-boton-agregar">
+              <button type="button" mat-raised-button color="primary"
+                      (click)="agregarProductoManual()"
+                      [disabled]="
+                        !productoSeleccionadoObj ||
+                        !productoForm.valid
+                      ">
+                ➕ Agregar al Trueque
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </form>
+
+      <!-- Detalle del Trueque -->
+      <div class="trueque-grid" style="margin-top: 1rem;">
+        <div class="trueque-box entregados">
+          <h3 class="trueque-box-title">📤 Productos Entregados</h3>
+          <div *ngIf="productosEntregados.length === 0" class="trueque-empty">Sin productos aún.</div>
+          <mat-list *ngIf="productosEntregados.length > 0">
+            <mat-list-item *ngFor="let p of productosEntregados">
+              {{ p.productoNombre }} — {{ p.cantidad }} unid. — L {{ p.precioCostoUnitario | number:'1.2-2' }}
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <div class="trueque-box recibidos">
+          <h3 class="trueque-box-title">📥 Productos Recibidos</h3>
+          <div *ngIf="productosRecibidos.length === 0" class="trueque-empty">Sin productos aún.</div>
+          <mat-list *ngIf="productosRecibidos.length > 0">
+            <mat-list-item *ngFor="let p of productosRecibidos">
+              {{ p.productoNombre }} — {{ p.cantidad }} unid. — L {{ p.precioCostoUnitario | number:'1.2-2' }}
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+
+      <!-- Resumen -->
+      <div class="trueque-resumen"
+           *ngIf="productosEntregados.length + productosRecibidos.length > 0"
+           style="margin-top: 1rem;">
+        <h3 class="trueque-resumen-title">📊 Resumen</h3>
+
+        <div class="trueque-resumen-grid">
+          <div class="resumen-item">
+            <label>Total Entregado (Farmacia)</label>
+            <div class="resumen-monto text-entregado">
+              L {{ totalFarmaciaEntrega | number:'1.2-2' }}
+            </div>
+          </div>
+
+          <div class="resumen-item">
+            <label>Total Recibido (Cliente)</label>
+            <div class="resumen-monto text-recibido">
+              L {{ totalClienteEntrega | number:'1.2-2' }}
+            </div>
+          </div>
+
+          <div class="resumen-item">
+            <label>Saldo</label>
+            <div class="resumen-monto"
+                 [ngClass]="{
+                   'text-contra': totalDiferencia > 0,
+                   'text-favor' : totalDiferencia < 0,
+                   'text-neutral': totalDiferencia === 0
+                 }">
+              <ng-container *ngIf="totalDiferencia > 0">
+                Yo debo&nbsp;L {{ totalDiferencia | number:'1.2-2' }}
+              </ng-container>
+              <ng-container *ngIf="totalDiferencia < 0">
+                Me deben&nbsp;L {{ (totalDiferencia * -1) | number:'1.2-2' }}
+              </ng-container>
+              <ng-container *ngIf="totalDiferencia === 0">
+                Intercambio equilibrado
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acción -->
+      <div class="trueque-actions" style="margin-top: 1rem;">
+        <button mat-raised-button color="accent" (click)="crearTrueque()"
+                [disabled]="!clienteSeleccionadoId || (productosEntregados.length + productosRecibidos.length) === 0">
+          💾 Guardar Trueque
+        </button>
+      </div>
+    </mat-tab>
+
+  <mat-tab label="Historial">
+  <div *ngIf="clienteSeleccionadoId && historialTrueques.length > 0; else sinHistorial" class="mt-4">
+
+  <div class="header-trueques">
+  <h3>📜 Historial de Trueques</h3>
+    <div class="acciones-trueque">
+      <button mat-raised-button color="accent" class="btn-pdf" (click)="generarPDFHistorial()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Exportar PDF
+      </button>
+
+      <button mat-raised-button color="warn" class="btn-pagar" (click)="pagar()">
+        <mat-icon>payments</mat-icon>
+        Pagar al Cliente
+      </button>
+
+      <button mat-raised-button color="primary" class="btn-cobrar" (click)="cobrar()">
+        <mat-icon>attach_money</mat-icon>
+        Cobrar al Cliente
+      </button>
+    </div>
+  </div>
+
+
+    <div *ngFor="let entrega of historialTrueques" class="entrega-card">
+      <h4>Trueque #{{ entrega.id }} - {{ entrega.fecha | date:'short' }}</h4>
+      <p><strong>💰 Cliente Entregó:</strong> {{ entrega.totalClienteEntrega | currency:'HNL' }}</p>
+      <p><strong>🏥 Farmacia Entregó:</strong> {{ entrega.totalFarmaciaEntrega | currency:'HNL' }}</p>
+      
+          
+      <!-- 💡 Aquí mostramos el saldo -->
+      <p [ngClass]="calcularSaldo(entrega).clase">
+        <strong>⚖️ Saldo:</strong> {{ calcularSaldo(entrega).texto }}
+      </p>
+
+      <p>
+        <strong>Estado:</strong>
+        <span [ngClass]="entrega.estaCerrado ? 'cerrado' : 'abierto'">
+          {{ entrega.estaCerrado ? 'Cerrado' : 'Abierto' }}
+        </span>
+      </p>
+
+       <!-- Grid: farmacia a la izquierda / cliente a la derecha -->
+  <div class="detalles-grid">
+    <!-- Productos entregados por farmacia -->
+    <mat-card class="detalle-card entregado">
+      <mat-card-header>
+        <mat-card-title>🚚 Entregado por mi farmacia</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table class="tabla-detalles">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Unidad</th>
+              <th>Cant.</th>
+              <th>Precio</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let det of entrega.detalles" [hidden]="det.esRecibido">
+              <td>{{ det.productoNombre }}</td>
+              <td>{{ det.unidadMedidaNombre }}</td>
+              <td>{{ det.cantidad }}</td>
+              <td>{{ det.precioCostoUnitario | currency:'HNL' }}</td>
+              <td>{{ det.fecha | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Productos recibidos del cliente -->
+    <mat-card class="detalle-card recibido">
+      <mat-card-header>
+        <mat-card-title>🎁 Recibido del cliente</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table class="tabla-detalles">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Unidad</th>
+              <th>Cant.</th>
+              <th>Precio</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let det of entrega.detalles" [hidden]="!det.esRecibido">
+              <td>{{ det.productoNombre }}</td>
+              <td>{{ det.unidadMedidaNombre }}</td>
+              <td>{{ det.cantidad }}</td>
+              <td>{{ det.precioCostoUnitario | currency:'HNL' }}</td>
+              <td>{{ det.fecha | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+<!-- Botón para abrir el formulario de agregar detalle -->
+<button mat-mini-fab color="primary" (click)="abrirAgregarDetalle(entrega.id)">
+  <mat-icon>add</mat-icon>
+</button>
+
+<!-- Formulario de agregar detalle solo para el trueque seleccionado -->
+<div *ngIf="truequeSeleccionadoParaAgregar === entrega.id" class="agregar-detalle-form" style="margin-top: 1rem;">
+  <h5>➕ Agregar nuevo detalle</h5>
+
+  <form [formGroup]="detalleExtraForm" (ngSubmit)="agregarDetalleExtra()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Costo por envío</mat-label>
+      <input matInput type="number" min="0" [(ngModel)]="costoEnvio" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+
+
+    <!-- Autocomplete de producto -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Buscar producto</mat-label>
+    <input type="text"
+       matInput
+       [matAutocomplete]="autoProducto"
+       [formControl]="productoControl">
+
+
+      <mat-autocomplete
+        #autoProducto="matAutocomplete"
+        (optionSelected)="productoSeleccionado($event)"
+        [displayWith]="displayProducto">
+        <mat-option *ngFor="let prod of productosFiltrados" [value]="prod">
+          {{ displayProducto(prod) }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Unidades de medida disponibles -->
+    <div *ngIf="opcionesVenta.length > 0" class="unidad-medida-section">
+      <label class="unidad-medida-label">Selecciona la unidad de medida:</label>
+      <mat-radio-group class="unidad-medida-group" formControlName="productoUnidadMedidaId">
+        <mat-radio-button *ngFor="let opcion of opcionesVenta" [value]="opcion.id">
+          {{ getDescripcionUnidad(opcion.unidadMedidaId) }} — L {{ opcion.precioVenta | number:'1.2-2' }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- Stock -->
+    <div class="stock-label" *ngIf="stockActualProducto !== null">
+      <strong>Stock actual:</strong> {{ stockActualProducto }}
+    </div>
+
+      <!-- Cantidad y Precio en fila -->
+    <div class="fila-cantidad-precio">
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad</mat-label>
+        <input matInput formControlName="cantidad" type="number" min="1" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Precio Costo Unitario</mat-label>
+        <input matInput formControlName="precioCostoUnitario" type="number" min="0.01" step="0.01" required>
+      </mat-form-field>
+    </div>
+
+
+    <!-- Tipo de entrega -->
+    <mat-radio-group formControlName="esRecibido" class="radio-group">
+      <mat-radio-button [value]="false">Lo entrega mi farmacia</mat-radio-button>
+      <mat-radio-button [value]="true">Lo recibo del cliente</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Botones -->
+    <div class="form-actions" style="margin-top: 1rem;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="detalleExtraForm.invalid">
+        ➕ Agregar
+      </button>
+      <button mat-button type="button" (click)="cancelarAgregarDetalle()">Cancelar</button>
+    </div>
+
+  </form>
+
+      <div *ngIf="detallesPendientes.length > 0" class="tabla-detalles">
+      <h3>Detalles pendientes</h3>
+      <table mat-table [dataSource]="detallesPendientes" class="mat-elevation-z2">
+
+        <!-- Producto -->
+        <ng-container matColumnDef="producto">
+          <th mat-header-cell *matHeaderCellDef> Producto </th>
+          <td mat-cell *matCellDef="let d"> {{ d.productoId }} </td>
+        </ng-container>
+
+        <!-- Cantidad -->
+        <ng-container matColumnDef="cantidad">
+          <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+          <td mat-cell *matCellDef="let d"> {{ d.cantidad }} </td>
+        </ng-container>
+
+        <!-- Precio -->
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef> Precio U. </th>
+          <td mat-cell *matCellDef="let d"> {{ d.precioCostoUnitario | number:'1.2-2' }} </td>
+        </ng-container>
+
+        <!-- Tipo -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let d"> {{ d.esRecibido ? 'Recibido' : 'Entregado' }} </td>
+        </ng-container>
+
+        <!-- Botón eliminar -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let d; let i = index">
+            <button mat-button color="warn" (click)="detallesPendientes.splice(i,1)">❌ Quitar</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['producto','cantidad','precio','tipo','acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['producto','cantidad','precio','tipo','acciones'];"></tr>
+      </table>
+
+      <!-- Botón para enviar -->
+      <div style="margin-top:1rem;">
+        <button mat-raised-button color="accent" (click)="enviarDetalles()">🚀 Enviar al Trueque</button>
+      </div>
+    </div>
+
+
+</div>
+    </div>
+  </div>
+
+  <ng-template #sinHistorial>
+    <div *ngIf="clienteSeleccionadoId">
+      <p>No hay historial disponible para este cliente.</p>
+    </div>
+  </ng-template>
+  </mat-tab>
+
+  </mat-tab-group>
+</mat-card>

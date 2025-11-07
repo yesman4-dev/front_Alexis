@@ -1,0 +1,85 @@
+<!-- lista-compras.component.html -->
+
+<div class="table-container">
+  <h2 style="color: white;">Lista de Compras</h2>
+
+  <div class="filters">
+
+      <!-- Filtros de búsqueda -->
+  <mat-form-field appearance="fill" class="filter-field">
+    <mat-label>Buscar</mat-label>
+    <input matInput placeholder="Buscar por # / Total" (input)="onSearchChange($event)">
+  </mat-form-field>
+
+  
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Buscar por fecha</mat-label>
+      <input matInput [matDatepicker]="picker" (dateChange)="onSearchChangeFecha($event.target.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  
+
+  <div class="table-scroll-container">
+    <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+      <!-- Columnas existentes -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Registro </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.fechaRegistro | date:'dd/MM/yyyy HH:mm' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalCompra">
+        <th mat-header-cell *matHeaderCellDef> Total Compra </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.totalCompra  | currency:'HNL':'symbol'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="usuarioNombre">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.usuarioNombre }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="proveedorNombre">
+        <th mat-header-cell *matHeaderCellDef> Proveedor </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.proveedorNombre }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoTransaccionNombre">
+        <th mat-header-cell *matHeaderCellDef> Tipo de Transacción </th>
+        <td mat-cell *matCellDef="let compra">{{ compra.tipoTransaccionNombre }}</td>
+      </ng-container>
+
+      <!-- Nueva columna de acción -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let compra">
+
+      <button mat-icon-button color="primary" (click)="verDetalleCompra(compra)" matTooltip="Ver detalle de compra">
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="revertirTipoCompra(compra)" matTooltip="Revertir tipo de compra">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+
+      <!-- Botón para eliminar la compra -->
+      <button mat-icon-button color="accent" (click)="eliminarCompra(compra)" matTooltip="Eliminar compra">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      </td>
+    </ng-container>
+
+
+      <!-- Encabezado y filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

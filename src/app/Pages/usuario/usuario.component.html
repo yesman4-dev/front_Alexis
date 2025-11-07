@@ -1,0 +1,97 @@
+<mat-card class="card-container">
+    <mat-tab-group>
+      <!-- Formulario para agregar usuario -->
+      <mat-tab label="Agregar Usuario">
+        <form [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()" class="user-form">
+          
+            <h1></h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de Usuario</mat-label>
+            <input matInput formControlName="usuarioNombre" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Clave de Usuario</mat-label>
+            <input matInput formControlName="clave" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" >
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput formControlName="correo" >
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="rolUsuarioId">
+              <mat-option *ngFor="let listaroles of listaroles" [value]="listaroles.id">
+                {{ listaroles.descripcion}} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="btn-container">
+            <button mat-raised-button class="btn-create">Agregar Usuario</button>
+          </div>
+          
+          <h1></h1>
+       </form>
+      </mat-tab>
+  
+      <mat-tab label="Lista de Usuarios">
+        <h1></h1>
+        <!-- Caja de búsqueda -->
+        <mat-form-field appearance="outline" class="search-box">
+          <mat-label>Buscar usuario</mat-label>
+          <input matInput (keyup)="filtrarUsuarios($event)" placeholder="Nombre o teléfono">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      
+        <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+      
+          <!-- Nombre de usuario -->
+          <ng-container matColumnDef="usuarioNombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let user"> {{ user.usuarioNombre }} </td>
+          </ng-container>
+      
+          <!-- Teléfono -->
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let user"> {{ user.telefono }} </td>
+          </ng-container>
+      
+          <!-- Correo -->
+          <ng-container matColumnDef="esActivo">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let user"> {{ user.esActivo }} </td>
+          </ng-container>
+      
+          <!-- Rol -->
+          <ng-container matColumnDef="rol">
+            <th mat-header-cell *matHeaderCellDef> Rol </th>
+            <td mat-cell *matCellDef="let user"> {{ user.rol }} </td>
+          </ng-container>
+      
+          <!-- Botón de editar -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="accent" (click)="editarUsuario(user)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+      
+    </mat-tab-group>
+  </mat-card>
+  

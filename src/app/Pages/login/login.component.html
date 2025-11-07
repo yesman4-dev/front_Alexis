@@ -1,0 +1,61 @@
+<div class="login-container">
+  <!-- Información de la empresa siempre visible -->
+  <div class="empresa-info">
+    <img *ngIf="listaEmpresa.length > 0" 
+         [src]="getLogoUrl(listaEmpresa[0].logo)" 
+         alt="Logo de la Empresa" 
+         class="empresa-logo">
+    <div class="empresa-details">
+      <h2 class="empresa-name" *ngIf="listaEmpresa.length > 0">{{ listaEmpresa[0].nombreEmpresa }}</h2>
+      <p class="empresa-eslogan" *ngIf="listaEmpresa.length > 0">{{ listaEmpresa[0].eslogan }}</p>
+    </div>
+  </div>
+  
+
+  <!-- Contenedor de tarjeta de login -->
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title class="login-title">Iniciar Sesión</mat-card-title>
+      <mat-card-subtitle *ngIf="!isLoggedIn">Por favor, ingresa tus datos para continuar</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="!isLoggedIn">
+      <form class="login-form" [formGroup]="LoginForm" (ngSubmit)="login()">
+        <!-- Campo de usuario -->
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Usuario" formControlName="UsuarioNombre" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+
+        <!-- Campo de contraseña -->
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" formControlName="Clave" type="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <!-- Botón de inicio de sesión -->
+        <button mat-raised-button class="btn-login" type="submit">
+          <mat-icon>login</mat-icon>
+          Iniciar sesión
+        </button>
+      </form>
+    </mat-card-content>
+
+    <!-- Información del usuario logueado -->
+    <mat-card-content *ngIf="isLoggedIn">
+      <div class="session-info">
+        Sesión iniciada como: <strong>{{ username }}</strong>
+      </div>
+
+      <div class="button-container">
+        <!-- Botón de cerrar sesión -->
+        <button mat-raised-button class="btn-logout" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Cerrar sesión
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

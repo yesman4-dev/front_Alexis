@@ -1,0 +1,55 @@
+.card-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 20px; /* Bordes redondeados en el contenedor principal */
+    overflow: hidden;    /* Asegura que los bordes redondeados no se vean afectados por el contenido */
+  }
+  
+  .user-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+
+  .btn-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 20px;        /* Ajusta el margen si es necesario */
+  }
+  
+
+  
+  /* Botones */
+button {
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.btn-create {
+  background-color: #e63472 !important;
+  color: white !important;
+  box-shadow: 0 0 15px #f50057;
+
+}
+
+
+.btn-create:hover {
+  background-color: red !important;
+  box-shadow: 0 0 25px #cb0773 !important;
+}

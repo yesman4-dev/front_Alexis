@@ -1,0 +1,48 @@
+<div class="catalog-container">
+  <!-- Tarjetas de navegación -->
+  <mat-card class="catalog-card" (click)="navigateTo('/egreso')" matTooltip="Ver lista de egresos registrados" matTooltipPosition="above">
+    <mat-icon fontSet="material-icons-outlined">arrow_circle_up</mat-icon>
+    <span>Lista Egresos</span>
+  </mat-card>
+
+  <mat-card class="catalog-card" (click)="navigateTo('/ingreso')" matTooltip="Ver lista de ingresos registrados" matTooltipPosition="above">
+    <mat-icon fontSet="material-icons-outlined">arrow_circle_down</mat-icon>
+    <span>Lista Ingresos</span>
+  </mat-card>
+
+  <mat-card class="catalog-card" (click)="navigateTo('/bitacora')" matTooltip="Ver movimientos" matTooltipPosition="above">
+    <mat-icon fontSet="material-icons-outlined">history</mat-icon>
+    <span>Bitácora</span>
+  </mat-card>
+
+
+  </div>
+
+  
+
+<!-- Filtros de fechas -->
+<div class="fecha-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="fechaInicio" (dateChange)="actualizarGrafico()">
+    <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInicio></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="pickerFin" [(ngModel)]="fechaFin" (dateChange)="actualizarGrafico()">
+    <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFin></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<!-- Gráfico centrado -->
+<div class="chart-section">
+  <div class="chart-container">
+    <h2>Ingresos vs Egresos</h2>
+    <canvas id="graficoIngresosEgresos"></canvas>
+  </div>
+</div>
+
+

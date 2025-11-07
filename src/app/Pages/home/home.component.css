@@ -1,0 +1,37 @@
+/* Fondo negro para todo el componente */
+/* Fondo con degradado para todo el componente */
+:host {
+  display: block;
+  background: linear-gradient(135deg, #000000, #570e44);
+  height: 100vh; /* Ajusta el alto de la pantalla completa */
+  color: #fff; /* Texto en blanco por defecto */
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.icon img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.icon p {
+  font-size: 14px;
+  margin: 0;
+  color: #fff; /* Texto en blanco para los labels */
+}
+
+
+  

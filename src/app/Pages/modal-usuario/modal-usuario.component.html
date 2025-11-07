@@ -1,0 +1,70 @@
+<mat-dialog-content class="modal-container">
+  
+  <!-- Título del Modal -->
+  <div class="modal-header">
+    <div class="modal-title">
+      <h2>Editar Usuario</h2>
+      <div class="title-divider"></div>
+    </div>
+    
+    <!-- Botón de tres puntos -->
+    <button mat-icon-button [matMenuTriggerFor]="menuOpciones" class="menu-button">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <!-- Menú desplegable -->
+    <mat-menu #menuOpciones="matMenu">
+      <button mat-menu-item (click)="mostrarModalCambioClave()">
+        <mat-icon>lock</mat-icon> Cambiar Contraseña
+      </button>
+    </mat-menu>
+  </div>
+
+  <form [formGroup]="usuarioForm" (ngSubmit)="ActualizarUsuario()" class="user-form">
+  
+    <!-- Nombre de Usuario -->
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput formControlName="usuarioNombre" required>
+    </mat-form-field>
+
+    <!-- Teléfono -->
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono">
+    </mat-form-field>
+
+    <!-- Correo Electrónico -->
+    <mat-form-field appearance="outline">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput formControlName="correo">
+    </mat-form-field>
+
+    <!-- Estado Activo/Inactivo -->
+    <mat-slide-toggle 
+      id="esActivo"
+      formControlName="esActivo"
+      (change)="onDisponibleChange($event)"
+    >
+      Usuario Activo
+    </mat-slide-toggle>
+
+    <!-- Rol del Usuario -->
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="rolUsuarioId">
+        <mat-option *ngFor="let listaroles of listaroles" [value]="listaroles.id">
+          {{ listaroles.descripcion }} 
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botones de Acción -->
+    <div class="btn-container">
+      <button mat-raised-button class="btn-create" type="submit">Actualizar</button>
+      <button mat-raised-button class="btn-cancel" (click)="cerrar()">Cancelar</button>
+    </div>
+
+  </form>
+
+</mat-dialog-content>

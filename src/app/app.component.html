@@ -1,0 +1,50 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- SideNav -->
+  <mat-sidenav *ngIf="isLoggedIn" #sidenav [mode]="'over'" [(opened)]="isExpanded">
+    <div class="sidenav-header">
+      <span>💊 Distribuidora & Bodega</span>
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let item of menuItems" [routerLink]="item.route" (click)="closeSidenav()">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span style="color: azure;">{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <mat-divider></mat-divider>
+      <div class="logged-user">
+        <div>
+          <span>{{ username }}</span>
+        </div>
+        <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="app-title">Variedades Alexis</span>
+
+      <span class="spacer"></span> <!-- Truco para empujar a la derecha -->
+
+      <div *ngIf="isLoggedIn && sessionTime > 0" class="session-timer">
+        ⏳ {{ formatTime(sessionTime) }}
+      </div>
+    </mat-toolbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

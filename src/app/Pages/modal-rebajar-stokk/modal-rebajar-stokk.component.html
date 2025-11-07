@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Rebajar stock: {{ data.nombreProducto }}</h2>
+
+<div mat-dialog-content>
+  <p>Stock actual: <strong>{{ data.stockActual }}</strong> {{ data.unidadMedida || '' }}</p>
+
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Cantidad a rebajar</mat-label>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="cantidad"
+      min="1"
+      [max]="data.stockActual"
+      required
+      autocomplete="off"
+    />
+    <mat-error *ngIf="cantidad <= 0 || cantidad > data.stockActual">
+      Ingresa una cantidad válida (1 - {{ data.stockActual }})
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="confirmar()"
+    [disabled]="cantidad <= 0 || cantidad > data.stockActual"
+  >
+    Confirmar
+  </button>
+</div>

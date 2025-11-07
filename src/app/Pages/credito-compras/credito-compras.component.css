@@ -1,0 +1,75 @@
+.credito-container {
+  padding: 20px;
+}
+
+.titulo {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #faf9f9;
+}
+
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 280px)); /* ancho fijo */
+  gap: 20px;
+  justify-content: center; /* centra los cards cuando no llenan el row */
+}
+
+.credito-card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credito-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+mat-card-subtitle {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+mat-card-content p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.buscador {
+  width: 100%;
+  max-width: 350px;
+  padding: 8px 12px;
+  margin: 0 auto 20px auto;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.resumen-global {
+  text-align: center;
+  background: #1976d2;
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.resumen-global h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.resumen-global .monto {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 8px;
+}

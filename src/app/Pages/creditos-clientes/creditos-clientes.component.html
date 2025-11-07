@@ -1,0 +1,34 @@
+<div class="resumen-global mat-elevation-z2">
+  <h3>💰 Total Saldo Pendiente</h3>
+  <p class="monto">
+    {{ getTotalSaldoPendiente() | currency:'HNL':'symbol':'1.2-2':'es-HN' }}
+  </p>
+</div>
+
+
+<h2 class="titulo">Créditos por clientes</h2>
+
+<input
+  type="text"
+  placeholder="🔍 Buscar cliente..."
+  [(ngModel)]="filtro"
+  (input)="filtrarClientes()"
+  class="buscador"
+/>
+
+<div class="grid-clientes">
+  <div class="card" *ngFor="let cliente of clientesFiltrados">
+    <div class="card-header">
+      <h3>{{ cliente.nombreCliente }}</h3>
+      <span class="cliente-id">ID: {{ cliente.clienteId }}</span>
+    </div>
+    <div class="card-body">
+      <p><strong>📞 Tel:</strong> {{ cliente.telefonoCliente }}</p>
+      <p><strong>💰 Pendiente:</strong> L {{ cliente.totalSaldoPendiente | number:'1.2-2' }}</p>
+      <p><strong>📋 Créditos:</strong> {{ cliente.totalCreditos }}</p>
+    </div>
+    <div class="card-footer">
+      <button (click)="verDetalle(cliente.clienteId)">Ver Detalles</button>
+    </div>
+  </div>
+</div>

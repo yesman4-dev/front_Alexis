@@ -1,0 +1,85 @@
+<mat-card class="card-container">
+    <mat-tab-group>
+      <!-- Formulario para agregar proveedor -->
+      <mat-tab label="Agregar Proveedor">
+        <form [formGroup]="proveedorForm" (ngSubmit)="agregarProveedor()" class="user-form">
+          
+            <h1></h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de Proveedor</mat-label>
+            <input matInput formControlName="nombreProveedor" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input matInput formControlName="direccion" >
+          </mat-form-field>
+
+
+          <div class="btn-container">
+            <button mat-raised-button class="btn-create">Agregar Proveedor</button>
+          </div>
+          
+          <h1></h1>
+       </form>
+      </mat-tab>
+  
+      <mat-tab label="Lista de Proveedores">
+        <h1></h1>
+        <!-- Caja de búsqueda -->
+        <mat-form-field appearance="outline" class="search-box">
+          <mat-label>Buscar Proveedor</mat-label>
+          <input matInput (keyup)="filtrarProveedores($event)" placeholder="Nombre o teléfono">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      
+        <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+      
+          <!-- Nombre de nombreProveedor -->
+          <ng-container matColumnDef="nombreProveedor">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let user"> {{ user.nombreProveedor }} </td>
+          </ng-container>
+      
+          <!-- Teléfono -->
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let user"> {{ user.telefono }} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="esActivo">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let user"> {{ user.esActivo }} </td>
+          </ng-container>
+
+             <!-- Direccion -->
+          <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef> Dirección </th>
+            <td mat-cell *matCellDef="let user"> {{ user.direccion }} </td>
+          </ng-container>
+      
+   
+      
+          <!-- Botón de editar -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="accent" (click)="editarproveedor(user)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+      
+    </mat-tab-group>
+  </mat-card>
+  

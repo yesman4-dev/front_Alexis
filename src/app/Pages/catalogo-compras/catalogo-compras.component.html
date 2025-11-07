@@ -1,0 +1,21 @@
+<div class="catalog-container">
+    <!-- Nueva compra -->
+    <mat-card class="catalog-card" (click)="navigateTo('/add_compras')">
+      <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">shopping_cart</mat-icon>
+      <span>Nueva compra</span>
+    </mat-card>
+  
+    <!-- Historial de compras -->
+    <mat-card class="catalog-card" (click)="navigateTo('/lista_compras')">
+      <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">history</mat-icon>
+      <span>Historial Compras</span>
+    </mat-card>
+  
+    <!-- Créditos por compras -->
+    <mat-card class="catalog-card" (click)="navigateTo('/credito_compras')">
+      <mat-icon fontSet="material-icons-outlined" aria-hidden="false" role="img">account_balance_wallet</mat-icon>
+      <span>Crédito Compras</span>
+    </mat-card>
+  </div>
+  
+  

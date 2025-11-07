@@ -1,0 +1,98 @@
+<div class="dashboard-header">
+  <h1>{{ fechaHoy | date:'fullDate' }}</h1>
+</div>
+
+<div *ngIf="cargando" class="dashboard-loader">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p>Cargando datos del sistema...</p>
+</div>
+
+<div *ngIf="error" class="dashboard-error">
+  <mat-icon>error</mat-icon>
+  {{ error }}
+</div>
+
+<div *ngIf="!cargando && !error" class="dashboard-grid">
+
+  <mat-card class="dashboard-card purple">
+    <mat-card-title>
+      <mat-icon>person_add</mat-icon> Clientes solventes
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalClientes }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card violet">
+    <mat-card-title>
+      <mat-icon>store</mat-icon> Proveedores
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalProveedores}}</mat-card-content>
+  </mat-card>
+
+    <mat-card class="dashboard-card yellow">
+    <mat-card-title>
+        <mat-icon>inventory</mat-icon> Bodegas
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalBodegas }}</mat-card-content>
+    </mat-card>
+
+
+  <mat-card class="dashboard-card green">
+    <mat-card-title>
+      <mat-icon>attach_money</mat-icon> Ventas contado hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalVentasContadoHoy }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card red">
+    <mat-card-title>
+      <mat-icon>credit_card</mat-icon> Ventas crédito hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalVentasCreditoHoy }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card blue">
+    <mat-card-title>
+      <mat-icon>group</mat-icon> Usuarios activos
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalUsuario }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card teal">
+    <mat-card-title>
+      <mat-icon>shopping_cart</mat-icon> Compras contado hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalComprasContado }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card orange">
+    <mat-card-title>
+      <mat-icon>credit_card</mat-icon> Compras crédito hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalComprasCredito | currency:'HNL' }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card cyan">
+    <mat-card-title>
+      <mat-icon>trending_up</mat-icon> Ingresos hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalIngresosHoy | currency:'HNL' }}</mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card dark">
+    <mat-card-title>
+      <mat-icon>trending_down</mat-icon> Egresos hoy
+    </mat-card-title>
+    <mat-card-content>{{ datosDashboard.totalEgresosHoy | currency:'HNL' }}</mat-card-content>
+  </mat-card>
+
+</div>
+
+<div class="dashboard-chart">
+  <canvas baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [type]="'bar'">
+  </canvas>
+</div>
+
+
