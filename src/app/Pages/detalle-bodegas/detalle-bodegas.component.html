@@ -12,6 +12,16 @@
 
     <div *ngIf="bodega.isOpen" class="contenido-bodega">
 
+      <!-- 🔥🔥 Totales por bodega (arriba del card) -->
+      <div class="total-bodega arriba">
+
+        <p>
+          Valor total (unidad dominante):
+          <strong>L. {{ bodega.valorTotalBodegaDominante | number:'1.2-2' }}</strong>
+        </p>
+      </div>
+
+      <!-- Buscador -->
       <div class="buscador-productos">
         <input
           type="text"
@@ -21,6 +31,7 @@
         />
       </div>
 
+      <!-- Acción PDF -->
       <div class="acciones-bodega">
         <button class="btn-generar-pdf" (click)="generarPDFPorBodega(bodega)">
           📄 Generar PDF de esta bodega
@@ -31,22 +42,38 @@
         No hay productos que coincidan con el filtro.
       </div>
 
+      <!-- Productos -->
       <div *ngFor="let producto of filtrarProductos(bodega)" class="producto-card">
+
+        <!-- INFO PRODUCTO -->
         <div class="producto-header">
           <div>
-            <h4 class="nombre-producto">{{ producto.nombreProducto }} / Laboratorio: {{ producto.laboratorioNombre }}</h4>
-            <p class="unidad-base">
-              Unidad base: <strong>{{ producto.unidadBase }}</strong>
+            <h4 class="nombre-producto">{{ producto.nombreProducto }}</h4>
+            <p class="unidad-base">Laboratorio: <strong>{{ producto.laboratorioNombre }}</strong></p>
+
+            <p>
+              Unidad dominante:
+              <strong>{{ producto.unidadDominante.unidadMedida }}</strong>
             </p>
-            <p class="stock-total">
-              Stock total (unidad base):
-              <span [class.stock-bajo]="producto.stockEnUnidadBase === 0">
-                {{ producto.stockEnUnidadBase }}
-              </span>
+
+            <p>
+              Stock dominante:
+              <strong>{{ producto.stockEnUnidadDominante }}</strong>
+            </p>
+
+            <p>
+              Stock total (unidades mínimas):
+              <strong>{{ producto.stockMinimoTotal }}</strong>
+            </p>
+
+            <p>
+              Valor total inventario:
+              <strong>L. {{ producto.valorInventario | number:'1.2-2' }}</strong>
             </p>
           </div>
         </div>
 
+        <!-- Presentaciones -->
         <div class="presentaciones">
           <table class="tabla-presentaciones">
             <thead>
@@ -59,16 +86,14 @@
             <tbody>
               <tr *ngFor="let presentacion of producto.presentaciones">
                 <td>{{ presentacion.unidadMedida }}</td>
-                <td [class.stock-bajo]="presentacion.stock === 0">{{ presentacion.stock }}</td>
+                <td>{{ presentacion.stock }}</td>
                 <td>
-
                   <button
-                    class="btn-rebajar" *ngIf="idRol !== 2"
-                    (click)="abrirModalRebajarStock(producto, bodega, presentacion)"
-                  >
+                    class="btn-rebajar"
+                    *ngIf="idRol !== 2"
+                    (click)="abrirModalRebajarStock(producto, bodega, presentacion)">
                     Rebajar en {{ presentacion.unidadMedida }}
                   </button>
-                  
                 </td>
               </tr>
             </tbody>
@@ -80,7 +105,9 @@
             Mover producto
           </button>
         </div>
+
       </div>
+
     </div>
   </div>
 </div>
