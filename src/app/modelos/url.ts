@@ -5,6 +5,6 @@ export interface Url {
 
   //produccion
   export const Url: Url = {
-    //url: 'https://localhost:7100', // URL local
-   url: 'https://api.varieadesalexis.store', // URL servidor
+    url: 'https://localhost:7100', // URL local
+   //url: 'https://api.varieadesalexis.store', // URL servidor
   };

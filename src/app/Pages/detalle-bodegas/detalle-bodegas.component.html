@@ -12,9 +12,8 @@
 
     <div *ngIf="bodega.isOpen" class="contenido-bodega">
 
-      <!-- 🔥🔥 Totales por bodega (arriba del card) -->
-      <div class="total-bodega arriba">
-
+      <!-- 🔥🔥 Totales por bodega (oculto a Rol 2) -->
+      <div class="total-bodega arriba" *ngIf="idRol !== 2">
         <p>
           Valor total (unidad dominante):
           <strong>L. {{ bodega.valorTotalBodegaDominante | number:'1.2-2' }}</strong>
@@ -31,8 +30,8 @@
         />
       </div>
 
-      <!-- Acción PDF -->
-      <div class="acciones-bodega">
+      <!-- Acción PDF (oculta para Rol 2) -->
+      <div class="acciones-bodega" *ngIf="idRol !== 2">
         <button class="btn-generar-pdf" (click)="generarPDFPorBodega(bodega)">
           📄 Generar PDF de esta bodega
         </button>
@@ -66,7 +65,8 @@
               <strong>{{ producto.stockMinimoTotal }}</strong>
             </p>
 
-            <p>
+            <!-- 🔥 Valor inventario oculto a Rol 2 -->
+            <p *ngIf="idRol !== 2">
               Valor total inventario:
               <strong>L. {{ producto.valorInventario | number:'1.2-2' }}</strong>
             </p>
